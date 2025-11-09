@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../pages/Auth/AuthContext";
+import logo from "/logo.png";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -72,7 +73,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">PawMart</a>
+        <img className="w-40" src={logo} alt="" />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>

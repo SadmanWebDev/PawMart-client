@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children }) => {
   const { user, loading } = use(AuthContext);
 
   if (loading) {
-    return <Loader></Loader>;
+    return <Loader />;
   }
 
   if (!user) {
