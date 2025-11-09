@@ -1,23 +1,48 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use, useEffect, useState } from "react";
+import { Link, NavLink } from "react-router";
+import { AuthContext } from "../../pages/Auth/AuthContext";
 
 const Navbar = () => {
+  const { user, signOutUser } = use(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
   const links = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/all-listings">All Listings</NavLink>
+        <NavLink to="/pets-supplies">Pets & Supplies</NavLink>
       </li>
-      <li>
-        <NavLink to="/my-listings">My Listings</NavLink>
-      </li>
-      <li>
-        <NavLink to="/my-order">My Order</NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/all-listings">All Listings</NavLink>
+          </li>
+          <li>
+            <NavLink to="/my-listings">My Listings</NavLink>
+          </li>
+          <li>
+            <NavLink to="/my-order">My Order</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
+  const handleSignOut = () => {
+    signOutUser();
+  };
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -47,13 +72,31 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">PawMart</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <input
+          onChange={(e) => handleTheme(e.target.checked)}
+          type="checkbox"
+          defaultChecked={localStorage.getItem("theme") === "dark"}
+          className="toggle mr-3"
+        />
+
+        {user ? (
+          <button
+            onClick={handleSignOut}
+            className="btn btn-primary btn-outline"
+          >
+            SignOut
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="btn btn-primary btn-outline">Login</button>
+          </Link>
+        )}
       </div>
     </div>
   );

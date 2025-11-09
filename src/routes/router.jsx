@@ -8,6 +8,8 @@ import MyListings from "../pages/Listings/MyListings";
 import MyOrders from "../pages/Orders/MyOrders";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
+import PetsSupplies from "../pages/PetsSupplies/PetsSupplies";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -20,20 +22,40 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
+        path: "/pets-supplies",
+        Component: PetsSupplies,
+      },
+      {
         path: "/all-listings",
-        Component: AllListings,
+        element: (
+          <ProtectedRoute>
+            <AllListings></AllListings>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/listing/:id",
-        Component: ListingDetails,
+        element: (
+          <ProtectedRoute>
+            <ListingDetails></ListingDetails>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/my-listings",
-        Component: MyListings,
+        element: (
+          <ProtectedRoute>
+            <MyListings></MyListings>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/my-order",
-        Component: MyOrders,
+        element: (
+          <ProtectedRoute>
+            <MyOrders></MyOrders>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
