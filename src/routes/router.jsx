@@ -10,6 +10,7 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import PetsSupplies from "../pages/PetsSupplies/PetsSupplies";
 import ProtectedRoute from "./ProtectedRoute";
+import CategoryFiltered from "../pages/CategoryFiltered/CategoryFiltered";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "/pets-supplies",
         Component: PetsSupplies,
+      },
+      {
+        path: "/category-filtered-product/:categoryName",
+        Component: CategoryFiltered,
       },
       {
         path: "/all-listings",

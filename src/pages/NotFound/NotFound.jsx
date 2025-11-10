@@ -6,7 +6,7 @@ import { FaPaw } from "react-icons/fa";
 const NotFound = () => {
   return (
     <div className="bg-[#FEF3F0] min-h-screen flex items-center">
-      <div className="flex flex-col md:flex-row justify-center items-center max-w-6xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-center items-center max-w-6xl mx-auto p-4">
         <div className="max-w-[700px]">
           <img src={errorImg} alt="404 Error Illustration" className="w-full" />
         </div>
