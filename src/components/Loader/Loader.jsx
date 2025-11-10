@@ -3,14 +3,14 @@ import "./loader.css";
 
 const Loader = () => {
   return (
-    <div class="loader min-h-screen mx-auto">
-      <div class="wrapper">
-        <div class="catContainer">
+    <div className="loader min-h-screen mx-auto">
+      <div className="wrapper">
+        <div className="catContainer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 733 673"
-            class="catbody"
+            className="catbody"
           >
             <path
               fill="#212121"
@@ -23,27 +23,27 @@ const Loader = () => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 158 564"
-            class="tail"
+            className="tail"
           >
             <path
               fill="#191919"
               d="M5.97602 76.066C-11.1099 41.6747 12.9018 0 51.3036 0V0C71.5336 0 89.8636 12.2558 97.2565 31.0866C173.697 225.792 180.478 345.852 97.0691 536.666C89.7636 553.378 73.0672 564 54.8273 564V564C16.9427 564 -5.4224 521.149 13.0712 488.085C90.2225 350.15 87.9612 241.089 5.97602 76.066Z"
             ></path>
           </svg>
-          <div class="text">
-            <span class="bigzzz">Z</span>
-            <span class="zzz">Z</span>
+          <div className="text">
+            <span className="bigzzz">Z</span>
+            <span className="zzz">Z</span>
           </div>
         </div>
-        <div class="wallContainer">
+        <div className="wallContainer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 500 126"
-            class="wall"
+            className="wall"
           >
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="3"
               x2="450"
@@ -51,7 +51,7 @@ const Loader = () => {
               x1="50"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="85"
               x2="400"
@@ -59,7 +59,7 @@ const Loader = () => {
               x1="100"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="122"
               x2="375"
@@ -67,14 +67,14 @@ const Loader = () => {
               x1="125"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="43"
               x2="500"
               y1="43"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="1.99391"
               x2="115.5"
@@ -82,7 +82,7 @@ const Loader = () => {
               x1="115.5"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="2.00002"
               x2="189"
@@ -90,7 +90,7 @@ const Loader = () => {
               x1="189"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="2.00612"
               x2="262.5"
@@ -98,7 +98,7 @@ const Loader = () => {
               x1="262.5"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="2.01222"
               x2="336"
@@ -106,7 +106,7 @@ const Loader = () => {
               x1="336"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="2.01833"
               x2="409.5"
@@ -114,7 +114,7 @@ const Loader = () => {
               x1="409.5"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="43"
               x2="153"
@@ -122,7 +122,7 @@ const Loader = () => {
               x1="153"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="43"
               x2="228"
@@ -130,7 +130,7 @@ const Loader = () => {
               x1="228"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="43"
               x2="303"
@@ -138,7 +138,7 @@ const Loader = () => {
               x1="303"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="43"
               x2="378"
@@ -146,7 +146,7 @@ const Loader = () => {
               x1="378"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="84"
               x2="192"
@@ -154,7 +154,7 @@ const Loader = () => {
               x1="192"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="84"
               x2="267"
@@ -162,7 +162,7 @@ const Loader = () => {
               x1="267"
             ></line>
             <line
-              stroke-width="6"
+              strokeWidth="6"
               stroke="#7C7C7C"
               y2="84"
               x2="342"
