@@ -1,4 +1,3 @@
-// ============ ListingDetails.jsx ============
 import { useState, useEffect, use } from "react";
 import { useParams, useNavigate } from "react-router";
 import { AuthContext } from "../Auth/AuthContext";
