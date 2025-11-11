@@ -1,7 +1,7 @@
 import { useState, useEffect, use } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { AuthContext } from "../Auth/AuthContext";
 
@@ -64,6 +64,7 @@ const AddListing = () => {
 
   return (
     <div className="min-h-screen bg-pawmart-light py-12">
+      <Toaster />
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

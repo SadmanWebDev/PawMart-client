@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../components/Layout/MainLayout";
 import NotFound from "../pages/NotFound/NotFound";
 import Home from "../pages/Home/Home";
-import AllListings from "../pages/Listings/AllListings";
 import ListingDetails from "../pages/Listings/ListingDetails";
 import MyListings from "../pages/Listings/MyListings";
 import MyOrders from "../pages/Orders/MyOrders";
@@ -11,6 +10,7 @@ import Register from "../pages/Auth/Register";
 import PetsSupplies from "../pages/PetsSupplies/PetsSupplies";
 import ProtectedRoute from "./ProtectedRoute";
 import CategoryFiltered from "../pages/CategoryFiltered/CategoryFiltered";
+import AddListing from "../pages/Listings/AddListing";
 
 export const router = createBrowserRouter([
   {
@@ -31,10 +31,10 @@ export const router = createBrowserRouter([
         Component: CategoryFiltered,
       },
       {
-        path: "/all-listings",
+        path: "/add-listing",
         element: (
           <ProtectedRoute>
-            <AllListings></AllListings>
+            <AddListing />
           </ProtectedRoute>
         ),
       },

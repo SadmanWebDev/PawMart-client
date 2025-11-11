@@ -13,7 +13,7 @@ const PetHeroes = () => {
         "Rescued from streets, now a therapy dog helping children with autism",
       adopted: "Jan 2024",
     },
-    {
+    {   
       id: 2,
       name: "Luna the Persian",
       img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTffbWl8DcNGP1pwyEmngLxpyNAH-IdwBkEeg&s",
