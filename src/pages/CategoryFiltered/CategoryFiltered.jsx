@@ -17,7 +17,7 @@ const CategoryFiltered = () => {
   const fetchCategoryListings = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/listings/category/${categoryName}`
+        `https://pawmart-server-tawny.vercel.app/api/listings/category/${categoryName}`
       );
       setListings(response.data);
       setLoading(false);

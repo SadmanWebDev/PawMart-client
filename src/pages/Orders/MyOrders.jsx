@@ -4,11 +4,12 @@ import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import { FaDownload } from "react-icons/fa";
 import jsPDF from "jspdf";
-// import "jspdf-autotable";
+import "jspdf-autotable";
 import { AuthContext } from "../Auth/AuthContext";
+import Loader from "../../components/Loader/Loader";
 
 const MyOrders = () => {
-  const { user } = use(AuthContext)
+  const { user } = use(AuthContext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +21,7 @@ const MyOrders = () => {
   const fetchMyOrders = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/orders/${user.email}`
+        `https://pawmart-server-tawny.vercel.app/api/orders/${user.email}`
       );
       setOrders(response.data);
       setLoading(false);
@@ -91,11 +92,7 @@ const MyOrders = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

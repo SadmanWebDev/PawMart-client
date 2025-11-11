@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-order",
+        path: "/my-orders",
         element: (
           <ProtectedRoute>
             <MyOrders></MyOrders>

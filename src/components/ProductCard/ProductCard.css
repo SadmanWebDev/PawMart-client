@@ -1,0 +1,163 @@
+:root {
+    --card-bg: #fff;
+    --card-border-color: rgba(255, 192, 203, 0.4); /* Light Pink */
+    --sale-bg: #ff6347; /* Tomato Red */
+    --main-text-color: #333;
+    --price-color: #555;
+    --star-color: #ffb700;
+    --cart-btn-bg: #ff6666; /* Bright Red */
+}
+
+/* --- Base Card Container --- */
+.product-card-simple {
+    width: 300px;
+    margin: 20px;
+    border-radius: 15px;
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    /* Simulate the outer pink border/glow */
+    border: 1px solid var(--card-border-color);
+}
+
+/* --- Inner Product Wrapper (for layout) --- */
+.product-wrapper {
+    padding: 20px 20px 30px 20px;
+    position: relative;
+}
+
+/* --- Product Image Thumb --- */
+.product-thumb {
+    margin-bottom: 20px;
+}
+
+.product-thumb a {
+    display: block;
+    text-decoration: none;
+    position: relative;
+}
+
+.primary-image {
+    text-align: center;
+    padding: 15px; /* Space around the image inside the card area */
+}
+
+.primary-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- Sale Label --- */
+.product-labels {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 10;
+}
+
+.onsale {
+    display: inline-block;
+    background-color: var(--sale-bg);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Product Details --- */
+.product-details {
+    padding: 0 5px; /* Minimal side padding for details */
+}
+
+.product-element-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.product-element-group-items:first-child {
+    flex-grow: 1;
+}
+
+/* --- Title --- */
+.product-title h5 {
+    font-size: 1.25em;
+    margin: 0;
+    font-weight: 600;
+    color: var(--main-text-color);
+}
+
+.product-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Price --- */
+.product-price {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--price-color);
+    margin-top: 5px;
+}
+.product-price .currency-symbol {
+    font-weight: normal;
+}
+
+/* --- Star Rating --- */
+.star-rating {
+    overflow: hidden;
+    position: relative;
+    height: 1em; /* Height of one star */
+    line-height: 1;
+    font-size: 16px;
+    width: 5em; /* Width of 5 stars */
+    margin-bottom: 5px;
+}
+/* Star Rating Background (empty stars) */
+.star-rating::before {
+    content: "★★★★★";
+    color: #ccc;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/* Star Rating Fill (filled stars) */
+.star-rating span {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "★★★★★";
+    color: var(--star-color);
+}
+.star-rating span::before {
+    content: "★★★★★";
+    color: var(--star-color);
+}
+
+/* --- Add to Cart Icon (Shopping Cart) --- */
+.add-to-cart-icon {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--cart-btn-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 102, 102, 0.5); /* Soft red shadow */
+}
+
+.add-to-cart-icon svg {
+    width: 60%;
+    height: 60%;
+}

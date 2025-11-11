@@ -52,7 +52,10 @@ const AddListing = () => {
         email: user.email,
       };
 
-      await axios.post("http://localhost:3000/api/listings", listingData);
+      await axios.post(
+        "https://pawmart-server-tawny.vercel.app/api/listings",
+        listingData
+      );
       toast.success("Listing added successfully!");
       navigate("/my-listings");
     } catch (error) {

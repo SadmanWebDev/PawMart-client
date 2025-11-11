@@ -6,7 +6,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { AuthContext } from "../Auth/AuthContext";
 
 const MyListings = () => {
-  const { user } = use(AuthContext)
+  const { user } = use(AuthContext);
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedListing, setSelectedListing] = useState(null);
@@ -21,7 +21,7 @@ const MyListings = () => {
   const fetchMyListings = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/my-listings/${user.email}`
+        `https://pawmart-server-tawny.vercel.app/api/my-listings/${user.email}`
       );
       setListings(response.data);
       setLoading(false);
@@ -34,7 +34,9 @@ const MyListings = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this listing?")) {
       try {
-        await axios.delete(`http://localhost:3000/api/listings/${id}`);
+        await axios.delete(
+          `https://pawmart-server-tawny.vercel.app/api/listings/${id}`
+        );
         toast.success("Listing deleted successfully!");
         fetchMyListings();
       } catch (error) {
@@ -66,7 +68,7 @@ const MyListings = () => {
         email: user.email,
       };
       await axios.put(
-        `http://localhost:3000/api/listings/${selectedListing._id}`,
+        `https://pawmart-server-tawny.vercel.app/api/listings/${selectedListing._id}`,
         updatedListing
       );
       toast.success("Listing updated successfully!");

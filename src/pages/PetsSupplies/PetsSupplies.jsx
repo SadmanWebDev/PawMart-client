@@ -9,7 +9,6 @@ const PetsSupplies = () => {
   const [filteredListings, setFilteredListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     document.title = "Pets & Supplies - PawMart";
@@ -18,7 +17,9 @@ const PetsSupplies = () => {
 
   const fetchListings = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/listings");
+      const response = await axios.get(
+        "https://pawmart-server-tawny.vercel.app/api/listings"
+      );
       setListings(response.data);
       setFilteredListings(response.data);
       setLoading(false);
@@ -36,15 +37,8 @@ const PetsSupplies = () => {
       filtered = filtered.filter((item) => item.category === selectedCategory);
     }
 
-    // Filter by search term
-    if (searchTerm) {
-      filtered = filtered.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
     setFilteredListings(filtered);
-  }, [selectedCategory, searchTerm, listings]);
+  }, [selectedCategory, listings]);
 
   const categories = ["All", "Pets", "Food", "Accessories", "Care Products"];
 
@@ -81,20 +75,6 @@ const PetsSupplies = () => {
                   </option>
                 ))}
               </select>
-            </div>
-
-            {/* Search */}
-            <div>
-              <label className="label">
-                <span className="label-text font-semibold">Search by Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Search pets or products..."
-                className="input input-bordered w-full focus:border-pawmart-orange"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
             </div>
           </div>
         </div>

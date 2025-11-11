@@ -1,5 +1,4 @@
 import { useState, useEffect, use } from "react";
-import { useNavigate } from "react-router";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
@@ -7,7 +6,6 @@ import { AuthContext } from "../Auth/AuthContext";
 
 const AddListing = () => {
   const { user } = use(AuthContext);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -52,9 +50,11 @@ const AddListing = () => {
         email: user.email,
       };
 
-      await axios.post("http://localhost:3000/api/listings", listingData);
+      await axios.post(
+        "https://pawmart-server-tawny.vercel.app/api/listings",
+        listingData
+      );
       toast.success("Listing added successfully!");
-      navigate("/my-listings");
     } catch (error) {
       toast.error("Error adding listing");
     } finally {

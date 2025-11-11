@@ -2,6 +2,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
+import ProductCard from "../ProductCard/ProductCard";
 
 const RecentListings = () => {
   const [recentListings, setRecentListings] = useState([]);
@@ -15,7 +16,7 @@ const RecentListings = () => {
   const fetchRecentListings = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/listings/recent"
+        "https://pawmart-server-tawny.vercel.app/api/listings/recent"
       );
       setRecentListings(response.data);
       setLoading(false);
@@ -44,44 +45,15 @@ const RecentListings = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {recentListings.map((listing, index) => (
-                <motion.div
+                <motion
                   key={listing._id}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="card bg-white shadow-lg hover:shadow-2xl transition-all duration-300"
                 >
-                  <figure className="h-64 overflow-hidden">
-                    <img
-                      src={listing.image}
-                      alt={listing.name}
-                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                    />
-                  </figure>
-                  <div className="card-body">
-                    <h3 className="card-title text-pawmart-dark font-heading">
-                      {listing.name}
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <span className="badge badge-sm bg-pawmart-orange text-white">
-                        {listing.category}
-                      </span>
-                      <span>📍 {listing.location}</span>
-                    </div>
-                    <p className="text-xl font-bold text-pawmart-orange">
-                      {listing.price === 0
-                        ? "Free for Adoption"
-                        : `৳${listing.price}`}
-                    </p>
-                    <Link
-                      to={`/listing/${listing._id}`}
-                      className="btn bg-pawmart-orange hover:bg-orange-600 text-white border-none mt-4"
-                    >
-                      See Details
-                    </Link>
-                  </div>
-                </motion.div>
+                  <ProductCard listing={listing}></ProductCard>
+                </motion>
               ))}
             </div>
           )}

@@ -2,14 +2,14 @@ import { useState, useEffect, use } from "react";
 import { useParams, useNavigate } from "react-router";
 import { AuthContext } from "../Auth/AuthContext";
 import axios from "axios";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt, FaCalendar, FaTag, FaEnvelope } from "react-icons/fa";
+import Loader from "../../components/Loader/Loader";
 
 const ListingDetails = () => {
   const { id } = useParams();
   const { user } = use(AuthContext);
-  const navigate = useNavigate();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showOrderModal, setShowOrderModal] = useState(false);
@@ -31,7 +31,7 @@ const ListingDetails = () => {
   const fetchListing = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/listings/${id}`
+        `https://pawmart-server-tawny.vercel.app/api/listings/${id}`
       );
       setListing(response.data);
       setLoading(false);
@@ -59,21 +59,20 @@ const ListingDetails = () => {
         additionalNotes: orderData.additionalNotes,
       };
 
-      await axios.post("http://localhost:3000/api/orders", order);
+      await axios.post(
+        "https://pawmart-server-tawny.vercel.app/api/orders",
+        order
+      );
       toast.success("Order placed successfully!");
+      e.target.reset();
       setShowOrderModal(false);
-      navigate("/my-orders");
     } catch (error) {
       toast.error("Error placing order");
     }
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (!listing) {
@@ -86,6 +85,7 @@ const ListingDetails = () => {
 
   return (
     <div className="min-h-screen bg-pawmart-light py-12">
+      <Toaster />
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

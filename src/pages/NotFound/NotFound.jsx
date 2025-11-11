@@ -10,7 +10,7 @@ const NotFound = () => {
         <div className="max-w-[700px]">
           <img src={errorImg} alt="404 Error Illustration" className="w-full" />
         </div>
-        <div className="text-center md:text-left">
+        <div className="text-center md:text-left text-black">
           <h1 className="font-extrabold text-4xl mb-6">Oops...</h1>
           <h2 className="font-medium text-4xl mb-5">Page not found</h2>
           <p className="mb-4">
