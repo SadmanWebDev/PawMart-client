@@ -135,3 +135,51 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+/* import { FaSearch, FaShoppingCart } from "react-icons/fa";
+
+const Navbar = () => {
+  return (
+    <div className="navbar bg-white shadow-sm px-8">
+      <div className="flex-1">
+        <a className="flex items-center gap-2 text-gray-700 font-semibold text-lg">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/616/616408.png"
+            alt="PetCare"
+            className="w-7 h-7"
+          />
+          PetCare
+        </a>
+      </div>
+      <div className="hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 text-gray-600 font-medium">
+          <li><a>Home</a></li>
+          <li><a>About</a></li>
+          <li><a>Grooming</a></li>
+          <li><a>Services</a></li>
+        </ul>
+      </div>
+      <div className="flex items-center gap-4">
+        <button className="bg-gray-100 p-2 rounded-full hover:bg-gray-200">
+          <FaSearch className="text-gray-600" />
+        </button>
+        <div className="flex items-center gap-4 bg-gray-800 text-white px-5 py-2 rounded-l-[3rem] rounded-r-[3rem]">
+          <div className="flex items-center gap-2">
+            <FaShoppingCart className="text-orange-500 text-lg" />
+            <span className="uppercase text-xs tracking-widest">CART</span>
+          </div>
+
+          <div className="w-px h-5 bg-gray-600"></div>
+
+          <button className="bg-yellow-400 text-black font-semibold px-4 py-2 rounded-full hover:bg-yellow-500 transition">
+            Get Started For Free
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
+ */

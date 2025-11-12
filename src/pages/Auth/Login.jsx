@@ -120,10 +120,10 @@
 
 // export default Login;
 import React, { use, useState } from "react";
-import { AuthContext } from "./AuthContext";
 import { Link, useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import loginCat from "/loginCat.png";
+import { AuthContext } from "./AuthContext";
 
 const Login = () => {
   const { signInUser, signInWithGoogle } = use(AuthContext);
@@ -149,8 +149,7 @@ const Login = () => {
 
   const handleGoogle = () => {
     signInWithGoogle()
-      .then((result) => {
-        console.log(result);
+      .then(() => {
         toast.success("Welcome Back!");
         navigate("/");
       })
@@ -160,70 +159,62 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9fdf8] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#fef3f0] flex items-center justify-center px-4">
       <Toaster />
-      <div className="bg-white w-full max-w-5xl rounded-2xl shadow-md p-8 md:p-12 flex flex-col md:flex-row items-center justify-between">
-        {/* Left Side */}
-        <div className="w-full md:w-1/2 space-y-6 mr-15">
-          <h1 className="text-4xl md:text-5xl font-bold text-green-600">
-            Login
+      <div className="bg-white w-full max-w-[900px] rounded-2xl shadow-lg flex flex-col md:flex-row overflow-hidden">
+        <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
+          <h1 className="text-4xl md:text-5xl font-semibold text-[#D75239] mb-6 text-center md:text-left">
+            Welcome Back!
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm mb-1">
-                Mobile Number / Email
-              </label>
+              <label className="block text-sm text-gray-600 mb-1">Email</label>
               <input
                 type="text"
                 name="email"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Enter email or mobile"
+                placeholder="Enter your email"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
                 required
               />
             </div>
-
             <div>
-              <label className="block text-sm mb-1">Password</label>
+              <label className="block text-sm text-gray-600 mb-1">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Enter password"
+                placeholder="Enter your password"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
                 required
               />
-            {error && <p className="text-error">{error}</p>}
+              {error && <p className="text-error text-sm">{error}</p>}
             </div>
             <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-1">
-                <input type="checkbox" className="checkbox checkbox-sm" />
-                Remember password
-              </label>
-              <a href="#" className="text-gray-500 hover:text-green-600">
+              <a className="text-gray-500 hover:text-[#D75239]">
                 Forgot password?
               </a>
             </div>
-
             <button
               type="submit"
-              className="w-full bg-green-500 text-white py-2 rounded-full font-medium hover:bg-green-600 transition"
+              className="btn w-full bg-[#D75239] text-white py-2 rounded-full font-semibold hover:bg-[#c14532] transition"
             >
               Login
             </button>
           </form>
-          <div className="text-center text-sm text-gray-500">
+          <div className="text-center text-sm text-gray-500 mt-6">
             OR CONTINUE WITH
           </div>
-          <div className="flex justify-left">
-            {/* Google */}
+          <div className="flex justify-center mt-3">
             <button
               onClick={handleGoogle}
-              className="btn w-full rounded-full bg-white text-black border-[#e5e5e5]"
+              className="btn bg-white text-black border border-[#e5e5e5] w-full rounded-full flex items-center justify-center gap-2 hover:bg-gray-50"
             >
               <svg
                 aria-label="Google logo"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
@@ -251,28 +242,28 @@ const Login = () => {
             </button>
           </div>
         </div>
-
-        {/* Right Side */}
-        <div className="w-full relative md:w-1/2 mt-10 md:mt-0 flex flex-col items-center text-center">
-          <h1 className="text-2xl mb-5">Don’t have an account? </h1>
-          <p className="text-gray-600 mb-6 max-w-md text-left">
-            In publishing and graphic design, Lorem ipsum is a placeholder text
-            commonly used to demonstrate the visual form of a document or a
-            typeface without relying on meaningful content.
-          </p>
-
-          <Link
-            to="/register"
-            className="border border-orange-400 text-orange-500 py-2 px-6 rounded-full hover:bg-orange-50 transition"
-          >
-            Registration
-          </Link>
-
-          <img
-            src={loginCat}
-            alt="Dog"
-            className="w-100 mt-8 absolute top-11 left-40 "
-          />
+        <div className="w-full md:w-1/2 bg-white p-8 md:p-10 flex flex-col justify-between items-center text-center">
+          <div>
+            <h1 className="text-2xl font-semibold text-gray-700 mb-3">
+              Don’t have an account?
+            </h1>
+            <p className="text-gray-600 mb-6 text-sm md:text-base max-w-md mx-auto">
+              Join PawMart today and connect with our pet-loving community.
+              Discover, adopt, or shop with care.
+            </p>
+            <Link to="/register">
+              <button className="btn border border-[#D75239] text-[#D75239] w-full md:w-1/2 rounded-full mt-2 hover:bg-[#D75239] hover:text-white transition">
+                Register
+              </button>
+            </Link>
+          </div>
+          <div className="mt-10 md:mt-8">
+            <img
+              src={loginCat}
+              alt="Pet illustration"
+              className="w-full mx-auto"
+            />
+          </div>
         </div>
       </div>
     </div>

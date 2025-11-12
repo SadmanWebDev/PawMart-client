@@ -2,7 +2,6 @@ import React, { use, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import toast, { Toaster } from "react-hot-toast";
-import { FaGoogle, FaFacebookF, FaTwitter } from "react-icons/fa";
 import registerCat from "/RegisterCat.png";
 
 const Register = () => {
@@ -145,86 +144,96 @@ const Register = () => {
     //     </div>
     //   </div>
     // </div>
-    <div className="flex items-center justify-center min-h-screen bg-[#f7faf7]">
-      <div className="flex bg-white shadow-lg rounded-2xl overflow-hidden w-[900px]">
-        <div className="flex flex-col justify-between p-10 w-1/2 bg-white">
-          <div>
-            <h1 className="text-4xl font-light text-green-600">Welcome to</h1>
-            <h1 className="text-4xl font-bold text-orange-500 mt-1">PawMart</h1>
-            <h1 className="text-4xl font-light text-green-600">Solutions</h1>
 
-            <p className="text-sm mt-6 text-gray-600">
+    <div className="flex items-center justify-center min-h-screen bg-[#fef3f0] px-4">
+      <Toaster />
+      <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-2xl overflow-hidden w-full max-w-[900px]">
+        <div className="flex flex-col justify-between p-8 md:p-10 md:w-1/2 bg-white text-center md:text-left">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-light text-green-600">
+              Welcome to
+            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-[#D75239] mt-1">
+              PawMart
+            </h1>
+            <p className="text-sm mt-4 text-gray-600">
               Already have an account?
             </p>
             <Link to="/login">
-              <button className="border border-orange-500 text-orange-500 px-6 py-1 rounded-full mt-2 hover:bg-orange-500 hover:text-white transition">
+              <button className="btn border border-[#D75239] text-[#D75239] w-1/2 rounded-full mt-3 hover:bg-[#D75239] hover:text-white transition">
                 Login
               </button>
             </Link>
           </div>
-          <div className="mt-10">
-            <img src={registerCat} alt="puppies" className="w-100" />
+          <div className="mt-8 md:mt-10">
+            <img
+              src={registerCat}
+              alt="puppies"
+              className="w-2/3 md:w-3/4 mx-auto md:mx-0"
+            />
           </div>
         </div>
-        <div className="p-10 w-1/2 bg-white flex flex-col justify-center">
-          <form className="space-y-4">
+        <div className="p-8 md:p-10 md:w-1/2 bg-white flex flex-col justify-center">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="text-sm text-gray-600">Name</label>
               <input
                 type="text"
+                name="name"
                 placeholder="Enter your name"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                required
               />
             </div>
             <div>
-              <label className="text-sm text-gray-600">
-                Mobile Number / Email
-              </label>
+              <label className="text-sm text-gray-600">Email</label>
               <input
-                type="text"
-                placeholder="Enter your email or phone"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                required
+              />
+            </div>
+            <div>
+              <label className="text-sm text-gray-600">Photo URL</label>
+              <input
+                type="url"
+                name="photo"
+                placeholder="Enter your photo URL"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
               />
             </div>
             <div>
               <label className="text-sm text-gray-600">Password</label>
               <input
                 type="password"
+                name="password"
                 placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                required
               />
-            </div>
-            <div>
-              <label className="text-sm text-gray-600">Confirm Password</label>
-              <input
-                type="password"
-                placeholder="Confirm your password"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-              />
+              {error && <p className="text-error text-sm mt-1">{error}</p>}
             </div>
             <button
               type="submit"
-              onClick={handleSubmit}
-              className="w-full bg-green-500 text-white py-2 rounded-full hover:bg-green-600 transition font-semibold"
+              className="btn w-full bg-[#D75239] text-white hover:bg-[#c14532] py-2 rounded-full transition font-semibold"
             >
-              Registration
+              Register
             </button>
           </form>
-
           <div className="mt-6 text-center text-gray-500 text-sm">
             OR CONTINUE WITH
           </div>
-
-          <div className="flex justify-center space-x-4 mt-3">
-            {/* Google */}
+          <div className="flex justify-center mt-3">
             <button
               onClick={handleGoogle}
-              className="btn bg-white text-black border-[#e5e5e5] w-full rounded-full"
+              className="btn bg-white text-black border border-[#e5e5e5] w-full rounded-full flex items-center justify-center gap-2 hover:bg-gray-50"
             >
               <svg
                 aria-label="Google logo"
-                width="16"
-                height="16"
+                width="22"
+                height="22"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
