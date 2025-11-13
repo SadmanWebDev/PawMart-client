@@ -1,74 +1,61 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { FaDrumstickBite, FaPaw, FaShoppingBag } from "react-icons/fa";
-import { MdPets } from "react-icons/md";
 import { Link } from "react-router";
+import { PiArrowBendDownRightBold } from "react-icons/pi";
 
 const Category = () => {
   const categories = [
     {
-      name: "Pets",
-      icon: <MdPets />,
+      category: "Pets",
       route: "/category-filtered-product/Pets",
-      color: "bg-orange-100",
+      image:
+        "https://wdtsweetheart.wpengine.com/wp-content/uploads/2025/06/cate-cats-img.jpg",
     },
     {
-      name: "Food",
-      icon: <FaDrumstickBite />,
+      category: "Food",
       route: "/category-filtered-product/Food",
-      color: "bg-blue-100",
+      image:
+        "https://wdtsweetheart.wpengine.com/wp-content/uploads/2025/06/cate-accessories-img.jpg",
     },
     {
-      name: "Accessories",
-      icon: <FaPaw />,
+      category: "Accessories",
       route: "/category-filtered-product/Accessories",
-      color: "bg-pink-100",
+      image:
+        "https://wdtsweetheart.wpengine.com/wp-content/uploads/2025/06/cate-toys-img.jpg",
     },
     {
-      name: "Care Products",
-      icon: <FaShoppingBag />,
+      category: "Care Products",
       route: "/category-filtered-product/Care-Products",
-      color: "bg-purple-100",
+      image:
+        "https://wdtsweetheart.wpengine.com/wp-content/uploads/2025/06/cate-furniture-img.jpg",
     },
   ];
 
   return (
-    <div>
-      <div className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <p className="text-pawmart-orange font-semibold uppercase tracking-wider mb-2">
-              Joy With Every Paw
-            </p>
-            <h2 className="text-3xl lg:text-4xl font-bold text-pawmart-dark font-heading">
-              Explore Pet Collections
-            </h2>
+    <div className=" mt-15 md:mt-20  mb-10 md:mb-15">
+      <div className="text-center  mb-7 md:mb-10">
+        <p className="text-orange-600 mb-5 text-lg md:text-xl">
+          Joy with Every Paw
+        </p>
+        <h1 className="text-gray-600 text-3xl md:text-5xl font-bold">
+          Explore PawMart Collections
+        </h1>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {categories.map((category) => (
+          <div className="card shadow-xl relative">
+            <img src={category.image} alt="" className=" rounded-2xl" />
+            <div className="absolute bg-white rounded-br-lg">
+              <h3 className="text-2xl text-gray-600 font-bold pr-2">
+                {category.category}
+              </h3>
+            </div>
+            <Link to={category.route} className="absolute bottom-4 right-4">
+              <button className="btn btn-circle btn-lg bg-orange-700 hover:bg-orange-600 border-none text-white">
+                <PiArrowBendDownRightBold />
+              </button>
+            </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category, index) => (
-              <motion
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileinview={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Link to={category.route}>
-                  <div
-                    className={`${category.color} p-8 rounded-3xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer`}
-                  >
-                    <div className="text-5xl mb-4 text-pawmart-orange group-hover:scale-110 transition-transform">
-                      {category.icon}
-                    </div>
-                    <h3 className="text-xl font-bold text-pawmart-dark font-heading">
-                      {category.name}
-                    </h3>
-                  </div>
-                </Link>
-              </motion>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

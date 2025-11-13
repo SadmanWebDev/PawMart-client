@@ -7,14 +7,14 @@ import PetHeroes from "../../components/Home/PetHeroes";
 
 const Home = () => {
   return (
-    <div>
+    <div className="max-w-[1500px] mx-auto">
       <div className="">
         <Carousel />
       </div>
-      <div className="">
+      <div className="max-w-11/12 md:max-w-7xl mx-auto">
         <Category />
       </div>
-      <div className="">
+      <div className="rounded-2xl mt-5 py-20 bg-blue-50">
         <RecentListings />
       </div>
       <div className="">

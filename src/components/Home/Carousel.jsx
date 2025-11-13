@@ -1,85 +1,68 @@
 import React from "react";
-// import pet1 from "../assets/pet1.jpg"; // Replace with your actual image paths
-// import pet2 from "../assets/pet2.jpg";
-// import pet3 from "../assets/pet3.jpg";
 
 const Carousel = () => {
+  const slides = [
+    {
+      id: 1,
+      img: "https://i.ibb.co.com/SXNBhLy1/a-compassionate-animal-shelter-volunteer-j-G5f-N68i-Q9yp-Xt6-Xz-OJkww-h-CVS-Va-YT4e-JUIw4-Fzn-W7w.jpg",
+      title: "Find Your Furry Friend Today!",
+      text: "Discover adorable pets waiting to join your family.",
+    },
+    {
+      id: 2,
+      img: "https://i.ibb.co/JFHdkdKZ/a-warm-candid-photograph-of-a-joyful-fam-c-Bxv-Icsv-Qgu-Br13a5qel-QA-p-SN03-Ee-XROKizkk-Dq437j-A.jpg",
+      title: "Adopt, Don’t Shop — Give a Pet a Home.",
+      text: "Every adoption makes a world of difference.",
+    },
+    {
+      id: 3,
+      img: "https://i.ibb.co.com/ZRqytrQj/a-bright-professional-campaign-style-pho-KPd-TM1-Tv-T-WIJdw-BJAz5sg-IX6-Gh-UYRRQOHvj-Ca-C8-Mzt-Q.jpg",
+      title: "Because Every Pet Deserves Love and Care.",
+      text: "Join us in making their lives happier and healthier.",
+    },
+  ];
+
   return (
     <div className="carousel w-full rounded-3xl overflow-hidden shadow-lg">
-      {/* Slide 1 */}
-      <div id="slide1" className="carousel-item relative w-full">
-        <img
-          src=""
-          className="w-full object-cover h-[400px] md:h-[500px]"
-          alt="Find your furry friend"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white px-6">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-            Find Your Furry Friend Today!
-          </h2>
-          <p className="text-lg md:text-xl">
-            Discover adorable pets waiting to join your family.
-          </p>
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          id={`slide${slide.id}`}
+          className="carousel-item relative w-full"
+        >
+          <img
+            src={slide.img}
+            className="w-full object-cover h-[400px] md:h-[500px]"
+            alt={slide.title}
+          />
+          <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
+              {slide.title}
+            </h2>
+            <p className="text-lg md:text-xl max-w-2xl">{slide.text}</p>
+          </div>
+          <div className="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
+            <a
+              href={`#slide${
+                index === 0 ? slides.length : slides[index - 1].id
+              }`}
+              className="btn btn-circle bg-white/70 hover:bg-white text-black border-none"
+            >
+              ❮
+            </a>
+            <a
+              href={`#slide${
+                index === slides.length - 1
+                  ? slides[0].id
+                  : slides[index + 1].id
+              }`}
+              className="btn btn-circle bg-white/70 hover:bg-white text-black border-none"
+            >
+              ❯
+            </a>
+          </div>
         </div>
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
-          <a href="#slide3" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide2" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-
-      {/* Slide 2 */}
-      <div id="slide2" className="carousel-item relative w-full">
-        <img
-          src=""
-          className="w-full object-cover h-[400px] md:h-[500px]"
-          alt="Adopt don't shop"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white px-6">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-            Adopt, Don’t Shop — Give a Pet a Home.
-          </h2>
-          <p className="text-lg md:text-xl">
-            Every adoption makes a world of difference.
-          </p>
-        </div>
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
-          <a href="#slide1" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide3" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
-
-      {/* Slide 3 */}
-      <div id="slide3" className="carousel-item relative w-full">
-        <img
-          src=""
-          className="w-full object-cover h-[400px] md:h-[500px]"
-          alt="Every pet deserves love"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white px-6">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-            Because Every Pet Deserves Love and Care.
-          </h2>
-          <p className="text-lg md:text-xl">
-            Join us in making their lives happier and healthier.
-          </p>
-        </div>
-        <div className="absolute flex justify-between transform -translate-y-1/2 left-4 right-4 top-1/2">
-          <a href="#slide2" className="btn btn-circle">
-            ❮
-          </a>
-          <a href="#slide1" className="btn btn-circle">
-            ❯
-          </a>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

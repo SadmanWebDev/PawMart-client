@@ -1,57 +1,63 @@
 import React from "react";
-import { ShoppingCart, Star } from "lucide-react";
+import { FaLocationDot } from "react-icons/fa6";
+import { PiShoppingCartThin } from "react-icons/pi";
 import { Link } from "react-router";
+
 const ProductCard = ({ listing }) => {
+  /* <div className="card bg-base-100 w-96 shadow-sm">
+  <figure>
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+      alt="Shoes" />
+  </figure>
+  <div className="card-body">
+    <h2 className="card-title">
+      Card Title
+      <div className="badge badge-secondary">NEW</div>
+    </h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <div className="card-actions justify-end">
+      <div className="badge badge-outline">Fashion</div>
+      <div className="badge badge-outline">Products</div>
+    </div>
+  </div>
+</div> */
   return (
-    <div className="w-full max-w-md mx-auto p-4">
-      <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-3xl p-6 shadow-lg relative">
-        {/* Sale Badge */}
+    <div className="w-full">
+      <div className="bg-[#FEF3F0] rounded-3xl p-5 shadow-lg relative">
         <div className="absolute top-6 right-6">
-          <span className="bg-red-400 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
+          <span className="bg-orange-700 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
             SALE
           </span>
         </div>
-
-        {/* Product Image Container */}
-        <div className="bg-white rounded-2xl p-8 mb-6 flex items-center justify-center min-h-[280px]">
-          <div className="relative">
-            {/* Dog Tag */}
-            <img src={listing.image} alt="" />
+        <div className="bg-white rounded-2xl mb-6">
+          <div className="">
+            <img
+              src={listing.image}
+              alt={listing.name}
+              className="rounded-2xl w-full h-full object-cover"
+            />
           </div>
         </div>
-
-        {/* Rating */}
-        <div className="flex gap-1 mb-3">
-          {[1, 2, 3, 4].map((star) => (
-            <Star
-              key={star}
-              className="w-6 h-6 fill-yellow-400 text-yellow-400"
-            />
-          ))}
-          <Star className="w-6 h-6 fill-gray-300 text-gray-300" />
-        </div>
-
-        {/* Product Title */}
         <h3 className="text-2xl font-bold text-gray-800 mb-4">
           {listing.name}
         </h3>
-        <span className="bg-red-400 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
+        <span className="bg-orange-700 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
           {listing.category}
         </span>
-        <span>📍 {listing.location}</span>
-        {/* Price and Cart Container */}
+        <div className="flex mt-5 gap-2 text-center">
+          <FaLocationDot className="text-orange-700" />
+          <h4>{listing.location}</h4>
+        </div>
         <div className="flex items-center justify-between">
-          {/* Price */}
           <div className="text-lg font-semibold text-gray-800">
-            <p className="text-xl font-bold text-pawmart-orange">
+            <p className="text-xl font-bold">
               {listing.price === 0 ? "Free for Adoption" : `$${listing.price}`}
             </p>
           </div>
-
-          {/* Cart Button */}
           <Link to={`/listing/${listing._id}`}>
-            <button className="bg-red-400 hover:bg-red-500 text-white rounded-full p-4 shadow-lg transition-all hover:scale-105 active:scale-95">
-              <ShoppingCart className="w-6 h-6" />
+            <button className="btn btn-circle btn-lg bg-orange-700 hover:bg-orange-600 border-none text-white font-bold">
+              <PiShoppingCartThin size={24}/>
             </button>
           </Link>
         </div>

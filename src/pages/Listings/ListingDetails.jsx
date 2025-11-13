@@ -143,7 +143,7 @@ const ListingDetails = () => {
                   <div>
                     <p className="text-sm text-gray-500">Price</p>
                     <p className="text-3xl font-bold text-pawmart-orange">
-                      {listing.price === 0
+                      {listing.Price === ""
                         ? "Free for Adoption"
                         : `৳${listing.price}`}
                     </p>

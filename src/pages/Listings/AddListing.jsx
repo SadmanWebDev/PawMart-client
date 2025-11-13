@@ -1,7 +1,6 @@
-import { useState, useEffect, use } from "react";
+import { useState, use } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { motion } from "framer-motion";
 import { AuthContext } from "../Auth/AuthContext";
 
 const AddListing = () => {
@@ -9,7 +8,7 @@ const AddListing = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    category: "Pets",
+    category: "Select",
     price: "",
     location: "",
     description: "",
@@ -17,10 +16,6 @@ const AddListing = () => {
     date: "",
     email: user?.email || "",
   });
-
-  useEffect(() => {
-    document.title = "Add Listing - PawMart";
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,18 +55,14 @@ const AddListing = () => {
     } finally {
       setLoading(false);
     }
+    e.target.reset();
   };
 
   return (
     <div className="min-h-screen bg-pawmart-light py-12">
       <Toaster />
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl mx-auto"
-        >
+        <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <h1 className="text-3xl font-bold text-pawmart-dark font-heading mb-8 text-center">
               Add New Listing
@@ -79,36 +70,34 @@ const AddListing = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Product/Pet Name */}
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text font-semibold">
-                      Product/Pet Name *
+                      Product/Pet Name
                     </span>
                   </label>
                   <input
                     type="text"
                     name="name"
                     placeholder="e.g., Golden Retriever Puppy"
-                    className="input input-bordered focus:border-pawmart-orange"
+                    className="input"
                     value={formData.name}
                     onChange={handleChange}
                     required
                   />
                 </div>
-
-                {/* Category */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-semibold">Category *</span>
+                    <span className="label-text font-semibold">Category</span>
                   </label>
                   <select
                     name="category"
-                    className="select select-bordered focus:border-pawmart-orange"
+                    className="select select-bordered focus:"
                     value={formData.category}
                     onChange={handleCategoryChange}
                     required
                   >
+                    <option value="Select">Select Category</option>
                     <option value="Pets">Pets</option>
                     <option value="Food">Pet Food</option>
                     <option value="Accessories">Accessories</option>
@@ -119,9 +108,7 @@ const AddListing = () => {
                 {/* Price */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-semibold">
-                      Price (৳) *
-                    </span>
+                    <span className="label-text font-semibold">Price ($)</span>
                   </label>
                   <input
                     type="number"
@@ -145,7 +132,7 @@ const AddListing = () => {
                 {/* Location */}
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-semibold">Location *</span>
+                    <span className="label-text font-semibold">Location </span>
                   </label>
                   <input
                     type="text"
@@ -193,46 +180,41 @@ const AddListing = () => {
               {/* Image URL */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-semibold">Image URL *</span>
+                  <span className="label-text font-semibold">Image URL</span>
                 </label>
                 <input
                   type="url"
                   name="image"
                   placeholder="https://example.com/image.jpg"
-                  className="input input-bordered focus:border-pawmart-orange"
+                  className="input input-bordered focus:"
                   value={formData.image}
                   onChange={handleChange}
                   required
                 />
               </div>
-
-              {/* Description */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-semibold">
-                    Description *
-                  </span>
+                  <span className="label-text font-semibold">Description</span>
                 </label>
                 <textarea
                   name="description"
                   placeholder="Provide detailed description..."
-                  className="textarea textarea-bordered h-32 focus:border-pawmart-orange"
+                  className="textarea textarea-bordered h-32 focus:"
                   value={formData.description}
                   onChange={handleChange}
                   required
                 ></textarea>
               </div>
-
               <button
                 type="submit"
-                className="btn w-full bg-pawmart-orange hover:bg-orange-600 text-white border-none text-lg"
+                className="btn w-full bg-orange-600 text-white border-none text-lg"
                 disabled={loading}
               >
                 {loading ? "Adding Listing..." : "Add Listing"}
               </button>
             </form>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

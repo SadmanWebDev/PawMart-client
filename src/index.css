@@ -1,6 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300..1000&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark;
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+.navbar .active {
+  color: crimson;
+  font-weight: bold;
+  border: 1px solid #cac8c8ff;
+  border-radius: 20px;
+  background: rgb(243, 226, 226);
+}
+
+* {
+  font-family: "Recursive", sans-serif;
+}
