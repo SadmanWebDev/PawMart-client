@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router";
 
 const PetHeroes = () => {
   const heroes = [
@@ -40,33 +39,33 @@ const PetHeroes = () => {
     <section className="bg-orange-50 rounded-2xl mt-5 py-20">
       <div className="max-w-11/12 mx-auto">
         <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-700">
-          Meet Our Pet Heroes
-        </h2>
-        <p className="text-gray-500 text-lg mt-5">
-          Inspiring stories from families who chose love through adoption 💛
-        </p>
-      </div>
-      <div className="grid md:grid-cols-4 grid-cols-1 gap-8 ">
-        {heroes.map((hero) => (
-          <div
-            key={hero.id}
-            className="relative rounded-2xl shadow-lg overflow-hidden group"
-            style={{
-              backgroundImage: `url(${hero.img})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition duration-300"></div>
-            <div className="relative text-center text-white p-6 flex flex-col justify-end h-80">
-              <h3 className="font-semibold text-lg">{hero.name}</h3>
-              <p className="text-sm text-orange-200 mb-2">{hero.role}</p>
-              <p className="text-sm text-gray-200 italic">“{hero.quote}”</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-700">
+            Meet Our Pet Heroes
+          </h2>
+          <p className="text-gray-500 text-lg mt-5">
+            Inspiring stories from families who chose love through adoption 💛
+          </p>
+        </div>
+        <div className="grid md:grid-cols-4 grid-cols-1 gap-8 ">
+          {heroes.map((hero) => (
+            <div
+              key={hero.id}
+              className="relative rounded-2xl shadow-lg overflow-hidden group"
+              style={{
+                backgroundImage: `url(${hero.img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
+              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition duration-300"></div>
+              <div className="relative text-center text-white p-6 flex flex-col justify-end h-80">
+                <h3 className="font-semibold text-lg">{hero.name}</h3>
+                <p className="text-sm text-orange-200 mb-2">{hero.role}</p>
+                <p className="text-sm text-gray-200 italic">“{hero.quote}”</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       </div>
     </section>
   );

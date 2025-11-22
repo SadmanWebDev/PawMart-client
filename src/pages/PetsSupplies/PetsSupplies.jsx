@@ -33,10 +33,10 @@ const PetsSupplies = () => {
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4">
         <div className="text-center py-15 rounded-2xl text-gray-700 mb-12 bg-[#FEF3F0]">
-          <h1 className="text-3xl md:text-5xl font-bold ">Pets & Supplies</h1>
+          <h1 className="text-3xl md:text-5xl font-bold">Pets & Supplies</h1>
           <p className="text-lg mt-5">
             Browse through our extensive collection of pets and supplies
-          </p>
+        </p>
         </div>
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-end mb-8">

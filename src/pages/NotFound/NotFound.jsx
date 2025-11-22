@@ -18,7 +18,7 @@ const NotFound = () => {
             the Homepage!
           </p>
           <Link to="/">
-            <button className="btn bg-[#D75239] text-white rounded-xl w-1/3  gap-2">
+            <button className="btn bg-orange-700 hover:bg-orange-600 text-white rounded-xl w-1/3  gap-2">
               Go Home <FaPaw className="rotate-45" />
             </button>
           </Link>

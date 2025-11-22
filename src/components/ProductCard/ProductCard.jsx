@@ -4,31 +4,13 @@ import { PiShoppingCartThin } from "react-icons/pi";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 
-const ProductCard = ({ listing, index }) => {
-  /* <div className="card bg-base-100 w-96 shadow-sm">
-  <figure>
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-      alt="Shoes" />
-  </figure>
-  <div className="card-body">
-    <h2 className="card-title">
-      Card Title
-      <div className="badge badge-secondary">NEW</div>
-    </h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-    <div className="card-actions justify-end">
-      <div className="badge badge-outline">Fashion</div>
-      <div className="badge badge-outline">Products</div>
-    </div>
-  </div>
-</div> */
+const ProductCard = ({ listing }) => {
   return (
     <motion.div
       key={listing._id}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
       className="card shadow-lg hover:shadow-2xl transition-all duration-300"
     >
       <div className="w-full">

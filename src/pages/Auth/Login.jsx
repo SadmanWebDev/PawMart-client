@@ -163,7 +163,7 @@ const Login = () => {
       <Toaster />
       <div className="bg-white w-full max-w-[900px] rounded-2xl shadow-lg flex flex-col md:flex-row overflow-hidden">
         <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-center">
-          <h1 className="text-4xl md:text-5xl font-semibold text-[#D75239] mb-6 text-center md:text-left">
+          <h1 className="text-4xl md:text-5xl font-semibold text-orange-700 mb-6 text-center md:text-left">
             Welcome Back!
           </h1>
 
@@ -174,7 +174,7 @@ const Login = () => {
                 type="text"
                 name="email"
                 placeholder="Enter your email"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                 required
               />
             </div>
@@ -186,19 +186,19 @@ const Login = () => {
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                 required
               />
               {error && <p className="text-error text-sm">{error}</p>}
             </div>
             <div className="flex items-center justify-between text-sm">
-              <a className="text-gray-500 hover:text-[#D75239]">
+              <a className="text-gray-500 hover:text-orange-700">
                 Forgot password?
               </a>
             </div>
             <button
               type="submit"
-              className="btn w-full bg-[#D75239] text-white py-2 rounded-full font-semibold hover:bg-[#c14532] transition"
+              className="btn w-full bg-orange-700 text-white py-2 rounded-full font-semibold hover:bg-[#c14532] transition"
             >
               Login
             </button>
@@ -252,7 +252,7 @@ const Login = () => {
               Discover, adopt, or shop with care.
             </p>
             <Link to="/register">
-              <button className="btn border border-[#D75239] text-[#D75239] w-full md:w-1/2 rounded-full mt-2 hover:bg-[#D75239] hover:text-white transition">
+              <button className="btn border border-orange-700 text-orange-700 w-full md:w-1/2 rounded-full mt-2 hover:bg-orange-700 hover:text-white transition">
                 Register
               </button>
             </Link>

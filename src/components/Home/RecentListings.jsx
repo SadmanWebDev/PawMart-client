@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router";
 import ProductCard from "../ProductCard/ProductCard";
 import Loader from "../Loader/Loader";
 

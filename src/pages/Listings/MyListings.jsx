@@ -1,160 +1,180 @@
 import { useState, useEffect, use } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { AuthContext } from "../Auth/AuthContext";
+import Loader from "../../components/Loader/Loader";
+import Swal from "sweetalert2";
 
 const MyListings = () => {
   const { user } = use(AuthContext);
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedListing, setSelectedListing] = useState(null);
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [updateData, setUpdateData] = useState({});
 
-  useEffect(() => {
-    document.title = "My Listings - PawMart";
-    fetchMyListings();
-  }, [user]);
-
-  const fetchMyListings = async () => {
-    try {
-      const response = await axios.get(
-        `https://pawmart-server-tawny.vercel.app/api/my-listings/${user.email}`
-      );
-      setListings(response.data);
-      setLoading(false);
-    } catch (error) {
-      toast.error("Error fetching listings");
-      setLoading(false);
-    }
+  const myListings = () => {
+    fetch(
+      `https://pawmart-server-tawny.vercel.app/api/my-listings/${user.email}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setListings(data);
+        setLoading(false);
+      });
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this listing?")) {
-      try {
-        await axios.delete(
-          `https://pawmart-server-tawny.vercel.app/api/listings/${id}`
-        );
-        toast.success("Listing deleted successfully!");
-        fetchMyListings();
-      } catch (error) {
-        toast.error("Error deleting listing");
-      }
+  useEffect(() => {
+    if (user?.email) {
+      myListings();
     }
+  }, [user?.email]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://pawmart-server-tawny.vercel.app/api/listings/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then(() => {
+            myListings();
+          });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your item has been deleted.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    });
   };
 
   const handleUpdateClick = (listing) => {
-    setSelectedListing(listing);
     setUpdateData({
       name: listing.name,
       category: listing.category,
-      price: listing.price,
       location: listing.location,
       description: listing.description,
       image: listing.image,
       date: listing.date,
+      id: listing._id,
     });
-    setShowUpdateModal(true);
+    setShowModal(true);
   };
 
-  const handleUpdate = async (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
-    try {
-      const updatedListing = {
-        ...updateData,
-        price: parseInt(updateData.price),
-        email: user.email,
-      };
-      await axios.put(
-        `https://pawmart-server-tawny.vercel.app/api/listings/${selectedListing._id}`,
-        updatedListing
-      );
-      toast.success("Listing updated successfully!");
-      setShowUpdateModal(false);
-      fetchMyListings();
-    } catch (error) {
-      toast.error("Error updating listing");
-    }
+
+    const form = e.target;
+    const name = form.name.value;
+    const category = form.category.value;
+    const location = form.location.value;
+    const description = form.description.value;
+    const email = user.email;
+    const updatedListing = {
+      name,
+      category,
+      location,
+      description,
+      email,
+    };
+
+    fetch(
+      `https://pawmart-server-tawny.vercel.app/api/listings/${updateData.id}`,
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(updatedListing),
+      }
+    )
+      .then((res) => res.json())
+      .then(() => {
+        toast.success("Listing updated successfully!");
+        setShowModal(false);
+        myListings();
+      });
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
+    return <Loader></Loader>;
   }
 
   return (
-    <div className="min-h-screen bg-pawmart-light py-12">
+    <div className="py-12">
+      <Toaster />
       <div className="container mx-auto px-4">
+        <div className="text-center py-15 rounded-2xl text-gray-700 mb-12 bg-[#FEF3F0]">
+          <h1 className="text-3xl md:text-5xl font-bold">My Listings</h1>
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="max-w-7xl mx-auto bg-[#FEF3F0] p-10 rounded-2xl shadow-2xl"
         >
-          <h1 className="text-3xl font-bold text-pawmart-dark font-heading mb-8 text-center">
-            My Listings
-          </h1>
-
           {listings.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-xl text-gray-600">
-                You haven't added any listings yet
+              <p className="text-2xl font-semibold text-orange-700">
+                You haven't added any listing yet
               </p>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl shadow-xl overflow-x-auto">
+            <div className="overflow-x-auto">
               <table className="table">
-                <thead className="bg-pawmart-orange text-white">
+                <thead>
                   <tr>
-                    <th>Image</th>
                     <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
                     <th>Location</th>
+                    <th>Price</th>
                     <th>Date</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {listings.map((listing) => (
-                    <tr key={listing._id} className="hover">
+                    <tr key={listing._id}>
                       <td>
-                        <div className="avatar">
-                          <div className="mask mask-squircle w-16 h-16">
-                            <img src={listing.image} alt={listing.name} />
+                        <div className="flex items-center gap-3">
+                          <div className="avatar">
+                            <div className="mask mask-squircle h-12 w-12">
+                              <img src={listing.image} alt={listing.name} />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="font-bold">{listing.name}</div>
+                            <div className="text-sm opacity-50">
+                              {listing.category}
+                            </div>
                           </div>
                         </div>
                       </td>
-                      <td className="font-semibold">{listing.name}</td>
-                      <td>
-                        <span className="badge badge-sm bg-pawmart-orange text-white">
-                          {listing.category}
-                        </span>
-                      </td>
-                      <td className="font-bold text-pawmart-orange">
-                        {listing.price === 0 ? "Free" : `৳${listing.price}`}
-                      </td>
                       <td>{listing.location}</td>
-                      <td>{listing.date}</td>
                       <td>
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleUpdateClick(listing)}
-                            className="btn btn-sm bg-blue-500 hover:bg-blue-600 text-white border-none"
-                          >
-                            <FaEdit />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(listing._id)}
-                            className="btn btn-sm bg-red-500 hover:bg-red-600 text-white border-none"
-                          >
-                            <FaTrash />
-                          </button>
-                        </div>
+                        {listing.price === 0 ? "Free" : `$${listing.price}`}
+                      </td>
+                      <td>{listing.date}</td>
+                      <td className="space-x-2">
+                        <button
+                          onClick={() => handleUpdateClick(listing)}
+                          className="btn rounded-2xl bg-blue-500 hover:bg-blue-600 text-white border-none btn-xs"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={() => handleDelete(listing._id)}
+                          className="btn rounded-2xl bg-red-500 hover:bg-red-600 text-white border-none btn-xs"
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -163,43 +183,42 @@ const MyListings = () => {
             </div>
           )}
         </motion.div>
-
-        {/* Update Modal */}
-        {showUpdateModal && (
+        {showModal && (
           <div className="modal modal-open">
-            <div className="modal-box max-w-2xl">
-              <h3 className="font-bold text-2xl text-pawmart-dark mb-6">
-                Update Listing
-              </h3>
+            <div className="modal-box max-w-2xl pt-0">
+              <div className="bg-orange-700 pt-6 pb-1 mb-5 rounded-b-2xl">
+                <h3 className="font-bold text-3xl text-center text-white mb-6">
+                  Update Listing
+                </h3>
+              </div>
               <form onSubmit={handleUpdate} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-semibold">Name</span>
+                    <label
+                      className="label
+                       font-semibold"
+                    >
+                      Name
                     </label>
                     <input
                       type="text"
-                      className="input input-bordered focus:border-pawmart-orange"
-                      value={updateData.name}
-                      onChange={(e) =>
-                        setUpdateData({ ...updateData, name: e.target.value })
-                      }
+                      name="name"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
+                      defaultValue={updateData.name}
                       required
                     />
                   </div>
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-semibold">Category</span>
+                    <label
+                      className="label
+                       font-semibold"
+                    >
+                      Category
                     </label>
                     <select
-                      className="select select-bordered focus:border-pawmart-orange"
-                      value={updateData.category}
-                      onChange={(e) =>
-                        setUpdateData({
-                          ...updateData,
-                          category: e.target.value,
-                        })
-                      }
+                      name="category"
+                      className="select border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
+                      defaultValue={updateData.category}
                       required
                     >
                       <option value="Pets">Pets</option>
@@ -209,66 +228,46 @@ const MyListings = () => {
                     </select>
                   </div>
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-semibold">Price</span>
+                    <label
+                      className="label
+                       font-semibold"
+                    >
+                      Location
                     </label>
                     <input
-                      type="number"
-                      className="input input-bordered focus:border-pawmart-orange"
-                      value={updateData.price}
-                      onChange={(e) =>
-                        setUpdateData({ ...updateData, price: e.target.value })
-                      }
+                      type="text"
+                      name="location"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
+                      defaultValue={updateData.location}
                       required
                     />
                   </div>
                   <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-semibold">Location</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="input input-bordered focus:border-pawmart-orange"
-                      value={updateData.location}
-                      onChange={(e) =>
-                        setUpdateData({
-                          ...updateData,
-                          location: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-semibold">
+                    <label
+                      className="label
+                        font-semibold"
+                    >
                       Description
-                    </span>
-                  </label>
-                  <textarea
-                    className="textarea textarea-bordered h-24 focus:border-pawmart-orange"
-                    value={updateData.description}
-                    onChange={(e) =>
-                      setUpdateData({
-                        ...updateData,
-                        description: e.target.value,
-                      })
-                    }
-                    required
-                  ></textarea>
+                    </label>
+                    <textarea
+                      name="description"
+                      className="textarea border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
+                      defaultValue={updateData.description}
+                      required
+                    ></textarea>
+                  </div>
                 </div>
                 <div className="modal-action">
                   <button
                     type="button"
-                    className="btn"
-                    onClick={() => setShowUpdateModal(false)}
+                    className="btn btn-outline rounded-2xl hover:bg-orange-700 hover:text-white border-orange-700"
+                    onClick={() => setShowModal(false)}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="btn bg-pawmart-orange hover:bg-orange-600 text-white border-none"
+                    className="btn bg-orange-700 rounded-2xl hover:bg-orange-600 text-white border-none"
                   >
                     Update
                   </button>

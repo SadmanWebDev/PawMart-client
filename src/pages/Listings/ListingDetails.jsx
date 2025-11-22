@@ -17,13 +17,13 @@ const ListingDetails = () => {
     fetch(`https://pawmart-server-tawny.vercel.app/api/listings/${id}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setListing(data);
         setLoading(false);
-        console.log(data);
       });
   }, [id]);
 
-  const handleOrderSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const form = e.target;
@@ -52,7 +52,6 @@ const ListingDetails = () => {
       additionalNotes,
     };
 
-
     fetch("https://pawmart-server-tawny.vercel.app/api/orders", {
       method: "POST",
       headers: {
@@ -64,7 +63,7 @@ const ListingDetails = () => {
       .then(() => {
         toast.success("Order placed successfully!");
         setShowOrderModal(false);
-        e.target.reset();
+        form.reset();
       });
   };
 
@@ -142,17 +141,19 @@ const ListingDetails = () => {
         </motion.div>
         {showOrderModal && (
           <div className="modal modal-open">
-            <div className="modal-box max-w-2xl">
-              <h3 className="font-bold text-3xl text-center text-orange-700 mb-6">
-                Place Order
-              </h3>
-              <form onSubmit={handleOrderSubmit} className="space-y-4">
+            <div className="modal-box pt-0 max-w-2xl">
+              <div className="bg-orange-700 pt-6 pb-1 mb-5 rounded-b-2xl">
+                <h3 className="font-bold text-3xl text-center  text-white mb-6">
+                  Place Order
+                </h3>
+              </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="form-control">
                     <label className="label font-semibold">Buyer Name</label>
                     <input
                       type="text"
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       value={user.displayName}
                       readOnly
                     />
@@ -161,7 +162,7 @@ const ListingDetails = () => {
                     <label className="label font-semibold">Email</label>
                     <input
                       type="email"
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       value={user.email}
                       readOnly
                     />
@@ -170,7 +171,7 @@ const ListingDetails = () => {
                     <label className="label font-semibold">Product Name</label>
                     <input
                       type="text"
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       value={listing.name}
                       readOnly
                     />
@@ -180,7 +181,7 @@ const ListingDetails = () => {
                     <input
                       type="number"
                       name="quantity"
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       readOnly={listing.category === "Pets"}
                       defaultValue={1}
                       min="1"
@@ -191,7 +192,7 @@ const ListingDetails = () => {
                     <label className="label font-semibold">Price</label>
                     <input
                       type="text"
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       value={listing.price === 0 ? "Free" : `$${listing.price}`}
                       readOnly
                     />
@@ -201,7 +202,7 @@ const ListingDetails = () => {
                     <input
                       type="date"
                       name="date"
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       required
                     />
                   </div>
@@ -210,7 +211,7 @@ const ListingDetails = () => {
                     <input
                       type="tel"
                       name="phone"
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       placeholder="017xxxxxxxx"
                       required
                     />
@@ -218,7 +219,7 @@ const ListingDetails = () => {
                   <div className="form-control">
                     <label className="label font-semibold">Address</label>
                     <input
-                      className=" input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className=" input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       name="address"
                       placeholder="Your delivery address"
                       required
@@ -229,7 +230,7 @@ const ListingDetails = () => {
                       Additional Note
                     </label>
                     <input
-                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                      className="input border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                       name="note"
                       placeholder="Any special instructions..."
                     ></input>

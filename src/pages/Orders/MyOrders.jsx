@@ -1,12 +1,11 @@
 import { useState, useEffect, use } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
-import { FaDownload } from "react-icons/fa";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 import { AuthContext } from "../Auth/AuthContext";
 import Loader from "../../components/Loader/Loader";
+import { IoCloudDownloadOutline } from "react-icons/io5";
 
 const MyOrders = () => {
   const { user } = use(AuthContext);
@@ -14,80 +13,33 @@ const MyOrders = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "My Orders - PawMart";
-    fetchMyOrders();
-  }, [user]);
-
-  const fetchMyOrders = async () => {
-    try {
-      const response = await axios.get(
-        `https://pawmart-server-tawny.vercel.app/api/orders/${user.email}`
-      );
-      setOrders(response.data);
-      setLoading(false);
-    } catch (error) {
-      toast.error("Error fetching orders");
-      setLoading(false);
-    }
-  };
+    fetch(`https://pawmart-server-tawny.vercel.app/api/orders/${user.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setOrders(data);
+        setLoading(false);
+      });
+  }, [user?.email]);
 
   const downloadPDF = () => {
+    if (orders.length === 0) {
+      toast.error("No orders available to download!");
+      return;
+    }
     const doc = new jsPDF();
-
-    // Add title
-    doc.setFontSize(18);
-    doc.setTextColor(245, 158, 66); // pawmart-orange
-    doc.text("PawMart - My Orders Report", 14, 20);
-
-    // Add user info
-    doc.setFontSize(11);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Customer: ${user.displayName || "N/A"}`, 14, 30);
-    doc.text(`Email: ${user.email}`, 14, 36);
-    doc.text(`Report Date: ${new Date().toLocaleDateString()}`, 14, 42);
-
-    // Prepare table data
     const tableData = orders.map((order) => [
       order.productName,
       order.quantity,
-      order.price === 0 ? "Free" : `৳${order.price}`,
+      order.price === 0 ? "Free" : `$${order.price}`,
       order.address,
       order.phone,
       order.date,
     ]);
-
-    // Add table
-    doc.autoTable({
-      startY: 50,
+    autoTable(doc, {
       head: [["Product", "Qty", "Price", "Address", "Phone", "Date"]],
       body: tableData,
-      theme: "grid",
-      headStyles: {
-        fillColor: [245, 158, 66], // pawmart-orange
-        textColor: [255, 255, 255],
-        fontStyle: "bold",
-      },
-      styles: {
-        fontSize: 9,
-        cellPadding: 5,
-      },
-      alternateRowStyles: {
-        fillColor: [255, 245, 235], // pawmart-light
-      },
     });
-
-    // Calculate total
-    const total = orders.reduce(
-      (sum, order) => sum + order.price * order.quantity,
-      0
-    );
-    const finalY = doc.lastAutoTable.finalY + 10;
-    doc.setFontSize(12);
-    doc.setFont(undefined, "bold");
-    doc.text(`Total Amount: ৳${total}`, 14, finalY);
-
-    // Save PDF
-    doc.save(`PawMart_Orders_${new Date().getTime()}.pdf`);
+    doc.save("pawMart-orders.pdf");
     toast.success("Report downloaded successfully!");
   };
 
@@ -96,38 +48,36 @@ const MyOrders = () => {
   }
 
   return (
-    <div className="min-h-screen bg-pawmart-light py-12">
+    <div className="py-12">
+      <Toaster />
       <div className="container mx-auto px-4">
+        <div className="text-center py-15 rounded-2xl text-gray-700 mb-12 bg-[#FEF3F0]">
+          <h1 className="text-3xl md:text-5xl font-bold">My Orders</h1>
+        </div>
+        <div className="fab">
+          <button
+            onClick={downloadPDF}
+            className="btn btn-lg btn-circle bg-orange-700 hover:bg-orange-600 text-white border-none"
+          >
+            <IoCloudDownloadOutline />
+          </button>
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="max-w-7xl mx-auto bg-[#FEF3F0] p-10 rounded-2xl shadow-2xl"
         >
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-pawmart-dark font-heading">
-              My Orders
-            </h1>
-            {orders.length > 0 && (
-              <button
-                onClick={downloadPDF}
-                className="btn bg-pawmart-orange hover:bg-orange-600 text-white border-none"
-              >
-                <FaDownload className="mr-2" />
-                Download Report
-              </button>
-            )}
-          </div>
-
           {orders.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-xl text-gray-600">
-                You haven't placed any orders yet
+              <p className="text-2xl font-semibold text-orange-700">
+                You haven't placed any order yet
               </p>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl shadow-xl overflow-x-auto">
+            <div className="overflow-x-auto">
               <table className="table">
-                <thead className="bg-pawmart-orange text-white">
+                <thead>
                   <tr>
                     <th>Product Name</th>
                     <th>Buyer Name</th>
@@ -136,24 +86,18 @@ const MyOrders = () => {
                     <th>Address</th>
                     <th>Phone</th>
                     <th>Date</th>
-                    <th>Notes</th>
                   </tr>
                 </thead>
                 <tbody>
                   {orders.map((order) => (
-                    <tr key={order._id} className="hover">
+                    <tr key={order._id} className="">
                       <td className="font-semibold">{order.productName}</td>
                       <td>{order.buyerName}</td>
                       <td className="text-center">{order.quantity}</td>
-                      <td className="font-bold text-pawmart-orange">
-                        {order.price === 0 ? "Free" : `৳${order.price}`}
-                      </td>
+                      <td>{order.price === 0 ? "Free" : `$${order.price}`}</td>
                       <td>{order.address}</td>
                       <td>{order.phone}</td>
                       <td>{order.date}</td>
-                      <td className="max-w-xs truncate">
-                        {order.additionalNotes || "N/A"}
-                      </td>
                     </tr>
                   ))}
                 </tbody>

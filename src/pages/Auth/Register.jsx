@@ -56,7 +56,6 @@ const Register = () => {
   };
 
   return (
-
     <div className="flex items-center justify-center min-h-screen bg-[#fef3f0] px-4">
       <Toaster />
       <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-2xl overflow-hidden w-full max-w-[900px]">
@@ -65,14 +64,14 @@ const Register = () => {
             <h1 className="text-3xl md:text-4xl font-light text-green-600">
               Welcome to
             </h1>
-            <h1 className="text-4xl md:text-5xl font-bold text-[#D75239] mt-1">
+            <h1 className="text-4xl md:text-5xl font-bold text-orange-700 mt-1">
               PawMart
             </h1>
             <p className="text-sm mt-4 text-gray-600">
               Already have an account?
             </p>
             <Link to="/login">
-              <button className="btn border border-[#D75239] text-[#D75239] w-1/2 rounded-full mt-3 hover:bg-[#D75239] hover:text-white transition">
+              <button className="btn border border-orange-700 text-orange-700 w-1/2 rounded-full mt-3 hover:bg-orange-700 hover:text-white transition">
                 Login
               </button>
             </Link>
@@ -93,7 +92,7 @@ const Register = () => {
                 type="text"
                 name="name"
                 placeholder="Enter your name"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                 required
               />
             </div>
@@ -103,7 +102,7 @@ const Register = () => {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                 required
               />
             </div>
@@ -113,7 +112,7 @@ const Register = () => {
                 type="url"
                 name="photo"
                 placeholder="Enter your photo URL"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
               />
             </div>
             <div>
@@ -122,14 +121,14 @@ const Register = () => {
                 type="password"
                 name="password"
                 placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D75239]"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-700"
                 required
               />
               {error && <p className="text-error text-sm mt-1">{error}</p>}
             </div>
             <button
               type="submit"
-              className="btn w-full bg-[#D75239] text-white hover:bg-[#c14532] py-2 rounded-full transition font-semibold"
+              className="btn w-full bg-orange-700 text-white hover:bg-[#c14532] py-2 rounded-full transition font-semibold"
             >
               Register
             </button>
